@@ -1,4 +1,5 @@
 ({
+	//Initial Data setup for the component to load
 	getData : function(component,event,helper) {
 		var action = component.get("c.getChecklistItemRecord");
 		action.setCallback(this, function(response){
