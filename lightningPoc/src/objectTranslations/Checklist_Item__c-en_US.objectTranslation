@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Checklist Item</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Checklist Items</value>
+    </caseValues>
+    <fields>
+        <label><!-- Checklist --></label>
+        <name>Checklist__c</name>
+        <relationshipLabel><!-- Checklist Items --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Completion Status --></label>
+        <name>Completion_Status__c</name>
+    </fields>
+    <fields>
+        <label><!-- Description --></label>
+        <name>Description__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

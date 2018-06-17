@@ -1,0 +1,37 @@
+<!-- Checklist component to create checklist for community Users -->
+<aura:component controller="ChecklistController" implements="force:appHostable,forceCommunity:availableForAllPageTypes" access="global" >
+    <!-- To change Checklist title Dynamically by Admin -->
+    <aura:attribute name="checklist" type="String" default="Checklist Record" access="global"/>     
+    <aura:attribute name="options" type="List" access="PRIVATE" />
+    <aura:attribute name="notEditable" type="boolean" access="PRIVATE" default="false"/>
+    <aura:attribute name="isLoading" type="boolean" access="PRIVATE" default="false"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>  
+    <aura:attribute name="newChecklist" type="Checklist__c"
+                    default="{ 'sobjectType': 'Checklist__c',
+                             'Name': '','Type__c' :'',
+                             }"/>
+    <!-- Card to display Checklist Start here -->
+    <lightning:card  title="{!v.checklist}">
+        <aura:set attribute="actions">
+            <aura:if isTrue="{! not(v.notEditable) }">
+                <lightning:button variant="success" label="Create Checklist" title="Create Checklist" onclick="{!c.handleSave}"/>
+            </aura:if>
+        </aura:set>
+        <p class="slds-p-horizontal_small">
+            <lightning:input type="text" disabled="{!v.notEditable}" required="true" name="input1" label="Name" value="{!v.newChecklist.Name}"/>
+            <lightning:select name="selectItem" disabled="{!v.notEditable}" value="{!v.newChecklist.Type__c}" label="Type">
+                <option value="">-- None --</option>
+                <aura:iteration items="{!v.options}" var="option">
+                    <option value="{!option}" text="{!option}" selected="{!v.newChecklist.Type__c == option ? 'true' : 'false'}"></option>
+                </aura:iteration>
+            </lightning:select>
+        </p>
+    </lightning:card>
+    <!-- Card to display Checklist End here -->
+    <aura:if isTrue="{! (v.notEditable) }">
+        <c:ChecklistItem/>         
+    </aura:if>
+    <aura:if isTrue="{! v.isLoading }">
+        <lightning:spinner alternativeText="Loading"/>
+    </aura:if>
+</aura:component>

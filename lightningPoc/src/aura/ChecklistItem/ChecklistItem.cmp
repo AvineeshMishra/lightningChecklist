@@ -1,0 +1,47 @@
+<aura:component controller="ChecklistController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" >
+    <!-- Data table attributes -->
+    <aura:attribute name="data" type="Object"/>
+    <aura:attribute name="columns" type="List"/>   
+    <!-- Data table attributes-->
+    <aura:handler name="init" value="{!this }" action="{!c.init }"/>
+    <aura:attribute name="cheklistRec" type="Checklist__c"/>     
+    <aura:attribute name = "checklistItem" type="String" default="Checklist Items"/>
+    <aura:attribute name="newChecklistItem" type="Checklist_Item__c"
+                    default="{ 'sobjectType': 'Checklist_Item__c',
+                             'Description__c': '','Completion_Status__c' :false,
+                             }"/>	
+    <lightning:card  title="{!v.checklistItem}">
+        <aura:set attribute="actions">
+            <lightning:button name="checklistItemModal" variant="brand" label="New Item" onclick="{!c.openModal}"/>
+        </aura:set>
+        <p class="slds-p-horizontal_small">
+            <!-- Data table -->
+            <div style="height: 300px">
+                <lightning:datatable
+                                     aura:id="checklistItemTable"
+                                     keyField="id"
+                                     data="{!v.data }"
+                                     columns="{!v.columns }"                                      
+                                     hideCheckboxColumn="true" onrowaction="{!c.handleRowAction}"/>
+            </div>
+        </p>
+    </lightning:card>	
+    <div>
+        <section aura:id="checklistModal" role="dialog" tabindex="-1" aria-labelledby="checklistModalHeading" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon class="slds-modal__close" alternativeText="Close" iconName="utility:close" onclick="{!c.closeModal}" variant="bare-inverse" size="large"/>
+                    <h2 id="checklistModalHeading" class="slds-text-heading_medium slds-hyphenate">Create New Checklist Item</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <lightning:textarea label="Description" name="ChecklistItemDes" value="{!v.newChecklistItem.Description__c}" />    
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning:button variant="neutral" onclick="{!c.closeModal}">Cancel</lightning:button>
+                    <lightning:button variant="brand" onclick="{!c.createItem}">Save</lightning:button>
+                </footer>
+            </div>
+        </section>
+        <div aura:id="checklistModalBackdrop" class="slds-backdrop"></div>
+    </div>
+</aura:component>
