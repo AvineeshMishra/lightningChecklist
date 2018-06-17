@@ -76,12 +76,17 @@
                 rows.splice(rowIndex, 1);
                 cmp.set('v.data', rows);
                 var toastEvent = $A.get("e.force:showToast");
-    			toastEvent.setParams({
-        		"title": "Success!",
-                 type: 'success',
-        		"message": "Record has been deleted successfully."
-    			});
-    			toastEvent.fire();
+                if(toastEvent) {
+	    			toastEvent.setParams({
+	        		"title": "Success!",
+	                 type: 'success',
+	        		"message": "Record has been deleted successfully."
+	    			});
+	    			toastEvent.fire();
+                }
+                else {
+                	alert('Record has been deleted successfully.');
+                }
             }
             else if (state === "ERROR") {
                 alert('Technical Issue in deletion');
