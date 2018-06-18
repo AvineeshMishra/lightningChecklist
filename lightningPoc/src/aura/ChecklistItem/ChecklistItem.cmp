@@ -1,10 +1,9 @@
-<aura:component controller="ChecklistController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" >
+<aura:component controller="ChecklistController" implements="force:appHostable,forceCommunity:availableForAllPageTypes" access="global" >
     <!-- Data table attributes -->
     <aura:attribute name="data" type="Object"/>
     <aura:attribute name="columns" type="List"/>   
     <!-- Data table attributes-->
-    <aura:handler name="init" value="{!this }" action="{!c.init }"/>
-    <aura:attribute name="cheklistRec" type="Checklist__c"/>     
+    <aura:handler name="init" value="{!this }" action="{!c.init }"/>         
     <aura:attribute name = "checklistItem" type="String" default="Checklist Items"/>
     <aura:attribute name="newChecklistItem" type="Checklist_Item__c"
                     default="{ 'sobjectType': 'Checklist_Item__c',

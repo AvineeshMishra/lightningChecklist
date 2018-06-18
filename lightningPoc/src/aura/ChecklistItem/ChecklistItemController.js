@@ -22,16 +22,18 @@
             {label: 'Description', fieldName: 'Description__c', type: 'text'},
             {label: 'Completion Status', fieldName: 'Completion_Status__c', type: 'boolean'},           
             
-            { type:  'button',typeAttributes: {
-                iconName: 'action:check',
-                label: 'Mark Complete', 
+            {label: 'Mark Completed', 
+            	type:  'button',typeAttributes: {
+                iconName: 'action:update_status',
+                label: '', 
                 name: 'completed',    
                 disabled: false     
             	}
             },
-            { type:  'button',typeAttributes: {
+            {label: 'Action',
+            	type:  'button',typeAttributes: {
                 iconName: 'action:delete',
-                label: 'Delete', 
+                label: '', 
                 name: 'delete',    
                 disabled: false     
             	}
