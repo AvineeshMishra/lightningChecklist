@@ -32,4 +32,43 @@ public class ChecklistControllerTestFactory {
         checkItem.Checklist__c = checklistObj.Id;
         return checkItem;
     }
+    /**
+    * Name          : insertContactData
+    * Description   : To create community user need to create Contact
+    * @param        : none
+    * return        : Contact
+    */
+    public static Contact insertContactData() {
+        Account partnerAccount = new Account(Name ='Test');
+        insert partnerAccount;
+        Contact partnerContact = new Contact(
+        FirstName = 'Test Contact',
+        LastName = 'Test Contact',
+        AccountId = partnerAccount.Id,
+        Email = 'testemail'+Math.round(Math.random()*Math.pow(10, 7))+'@testemail.com');         
+        insert partnerContact;
+        return partnerContact;         
+    }
+    /**
+    * Name          : buildUserData
+    * Description   : To create community user
+    * @param        : none
+    * return        : User
+    */
+    public static User buildUserData() {
+        Profile p = [SELECT Id FROM Profile WHERE Name='Custom Community User'];
+        User u = new User (         
+        ProfileId = p.Id,
+        Username = System.now().millisecond() + 'test2@test.com',
+        Alias = 'batman',
+        Email='mark.smith@accenture.com',
+        EmailEncodingKey='UTF-8',
+        Firstname='Mark', 
+        ContactId = insertContactData().Id,
+        Lastname='Smith',
+        LanguageLocaleKey='en_US',
+        LocaleSidKey='en_US',
+        TimeZoneSidKey='America/Chicago');
+        return u;
+    }
 }

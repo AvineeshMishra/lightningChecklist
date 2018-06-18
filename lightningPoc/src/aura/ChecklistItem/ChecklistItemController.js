@@ -20,10 +20,11 @@
     init : function(component,event,helper) {
         component.set('v.columns', [
             {label: 'Description', fieldName: 'Description__c', type: 'text'},
-            {label: 'Completion Status', fieldName: 'Completion_Status__c', type: 'boolean'},            
+            {label: 'Completion Status', fieldName: 'Completion_Status__c', type: 'boolean'},           
+            
             { type:  'button',typeAttributes: {
                 iconName: 'action:check',
-                label: 'Done', 
+                label: 'Mark Complete', 
                 name: 'completed',    
                 disabled: false     
             	}

@@ -98,4 +98,16 @@ public with sharing class ChecklistController {
     public static void deleteChecklistItemCon(Checklist_Item__c checklistItem) {
         delete checklistItem;
     }
+    @AuraEnabled
+    public static void deleteChecklistData() {
+        try {
+            Checklist__c checklist = [Select Id from Checklist__c where Owner.Id =:UserInfo.getUserId() Limit 1]; 
+            if(checklist.Id != null ) {
+            	delete checklist;    
+            }
+        }
+        catch(Exception e) {
+            system.debug('Error in deletion-->'+e.getMessage());
+        }
+    }
 }

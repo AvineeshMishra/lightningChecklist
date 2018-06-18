@@ -16,14 +16,18 @@
         </aura:set>
         <p class="slds-p-horizontal_small">
             <!-- Data table -->
-            <div style="height: 300px">
-                <lightning:datatable
-                                     aura:id="checklistItemTable"
-                                     keyField="id"
-                                     data="{!v.data }"
-                                     columns="{!v.columns }"                                      
-                                     hideCheckboxColumn="true" onrowaction="{!c.handleRowAction}"/>
-            </div>
+            <aura:if isTrue="{!not(empty(v.data))}">
+                <div style="height: auto">
+                    
+                    <lightning:datatable
+                                         aura:id="checklistItemTable"
+                                         keyField="id"
+                                         data="{!v.data }"
+                                         columns="{!v.columns }"                                      
+                                         hideCheckboxColumn="true" onrowaction="{!c.handleRowAction}"/>
+                    
+                </div>
+            </aura:if>
         </p>
     </lightning:card>	
     <div>

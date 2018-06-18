@@ -2,10 +2,10 @@
  * @Description : To test ChecklistController functionality
  * @Version     : 1.0
  * @Author      : avineesh.k.mishra
- * @CreatedDate : 17-June-2018
+ * @CreatedDate : 18-June-2018
  */
 @isTest
-public class ChecklistControllerTest {
+private class ChecklistControllerTest {
     @isTest
     private static void testChecklistDataPostiveTest() {
         Checklist__c check = new Checklist__c();         
@@ -77,5 +77,28 @@ public class ChecklistControllerTest {
         List<Checklist_Item__c> checkItemList = [select id from Checklist_Item__c where Id=:checkItem.Id limit 1];
         System.AssertEquals(true,checkItemList.isEmpty());
     }
-    
+    @isTest
+    private static void testChecklistDeleteNegativeCheck() {
+        Checklist__c check = ChecklistControllerTestFactory.buildChecklistData();         
+        insert check;
+        Test.startTest();
+            ChecklistController.deleteChecklistData();
+        Test.stopTest();
+        List<Checklist__c> checkList = [select id from Checklist__c limit 1];
+        System.AssertEquals(false,checkList.isEmpty());
+    }
+    @isTest
+    private static void testChecklistDeletePositiveCheck() {         
+        User u = ChecklistControllerTestFactory.buildUserData();
+        insert u; 
+        System.runAs(u) {
+            Checklist__c check = ChecklistControllerTestFactory.buildChecklistData();         
+            insert check;
+            Test.startTest();
+                ChecklistController.deleteChecklistData();
+            Test.stopTest();
+            List<Checklist__c> checkList = [select id from Checklist__c where owner.Id =: u.Id limit 1];
+            System.AssertEquals(true,checkList.isEmpty());
+        }
+    }
 }

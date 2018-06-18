@@ -1,5 +1,4 @@
 ({
-	//Initial Data setup for the component to load
 	getData : function(component,event,helper) {
 		var action = component.get("c.getChecklistItemRecord");
 		action.setCallback(this, function(response){
@@ -37,13 +36,13 @@
                     if(toastEvent) {
                         toastEvent.setParams({
                             title : 'Success Message',
-                            message:'checklist item'+ ' ' + row.Description__c +' ' +'completed',                
+                            message:'Checklist Item'+ ' ' + row.Description__c +' ' +'completed',                
                             type: 'success',
                         });
                         toastEvent.fire();
                     }
                     else {
-                        alert('checklist item'+ " " +row.Description__c + " " +'updated successfully' );
+                        alert('Checklist Item'+ ' ' +row.Description__c + ' ' +'updated successfully' );
                     }
                 }
             });
@@ -55,7 +54,7 @@
             if(toastEvent) {
                 toastEvent.setParams({
                     title : 'Info Message',
-                    message:'checklist item'+ ' ' + row.Description__c +' ' +'is already Completed',                
+                    message:'Checklist Item'+ ' ' + row.Description__c +' ' +'is already completed',                
                     type: 'info',
                 });
                 toastEvent.fire();
@@ -78,15 +77,15 @@
                 cmp.set('v.data', rows);
                 var toastEvent = $A.get("e.force:showToast");
                 if(toastEvent) {
-	    			toastEvent.setParams({
-	        		"title": "Success!",
-	                 type: 'success',
-	        		"message": "Record has been deleted successfully."
-	    			});
-	    			toastEvent.fire();
-                }
+                    toastEvent.setParams({
+                    "title": "Success!",
+                     type: 'success',
+                    "message": 'Checklist Item' + ' ' + row.Description__c + ' ' + 'deleted successfully'
+                    });
+                    toastEvent.fire();
+            	}
                 else {
-                	alert('Record has been deleted successfully.');
+                    alert('Checklist Item' + ' ' + row.Description__c + ' ' + 'deleted successfully');
                 }
             }
             else if (state === "ERROR") {
@@ -114,11 +113,14 @@
                 if(toastEvent) {
                     toastEvent.setParams({
                         title : 'Success Message',
-                        message:'Checklist item created Successfully',                
+                        message:'Checklist Item' + ' ' + checklistItem.Description__c + ' ' + 'created successfully',                
                         type: 'success'
                     });
                     toastEvent.fire();
-                }                                 
+                }
+                else {
+                    alert('Checklist Item' + ' ' + checklistItem.Description__c + ' ' + 'created successfully');
+                }
                 //Reset Form
                 var newItem = {'sobjectType': 'Checklist_Item__c',                                     
                                'Description__c': '',

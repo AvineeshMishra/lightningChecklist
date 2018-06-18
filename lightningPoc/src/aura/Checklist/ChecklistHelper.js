@@ -34,19 +34,18 @@
             if(toastEvent) {
                 toastEvent.setParams({
                     title : 'Error Message',
-                    message:'Name or Type Should not be blank',                
+                    message:'Name and Type Should not be blank',                
                     type: 'error',
                 });
                 toastEvent.fire();
         	}
             else {
-                alert('Name or Type Should not be blank');
+                alert('Name and Type Should not be blank');
             }
         }
         else
         {
-            var action = component.get("c.createRecord");
-            //  alert(JSON.stringify(inputValues));
+            var action = component.get("c.createRecord");             
             action.setParams({
                 "insertObj": inputValues
             });
@@ -57,13 +56,13 @@
                     if(toastEvent) {
                         toastEvent.setParams({
                             title : 'Success Message',
-                            message:'Checklist record created successfully',                
+                            message: inputValues.Name + ' ' + 'created successfully',                
                             type: 'success',
                         });
                         toastEvent.fire();
                     }
                     else {
-                        alert('Checklist record created successfully');
+                        alert( inputValues.Name + ' ' + 'created successfully');
                     }
                 } else if (a.getState() === "ERROR") {
                     $A.log("Errors", a.getError());
@@ -72,4 +71,36 @@
             $A.enqueueAction(action); 
         }
     },
+    handleDelete : function(component) {   
+        var checklistRec = component.get("v.newChecklist");
+        var action = component.get("c.deleteChecklistData");             
+        action.setCallback(this, function(a) {
+            if (a.getState() === "SUCCESS") {                
+                var toastEvent = $A.get("e.force:showToast");
+                if(toastEvent) {
+                    toastEvent.setParams({
+                        title : 'Success Message',
+                        message: checklistRec.Name + ' ' + 'deleted successfully',                
+                        type: 'success',
+                    });
+                    toastEvent.fire();
+                }
+                else {
+                    alert(checklistRec.Name + ' ' + 'deleted successfully');
+                }
+                //Reset Form
+                var newChecklist = {'sobjectType': 'Checklist__c',                                     
+                                    'Name': '',
+                                    'Type': ''
+                                   };                 
+                //resetting the Values in the form
+                component.set("v.newChecklist",newChecklist);
+                component.set("v.notEditable", false);
+            } 
+            else if (a.getState() === "ERROR") {
+                $A.log("Errors", a.getError());
+            }
+        });
+        $A.enqueueAction(action); 
+    }
 });

@@ -7,4 +7,7 @@
     handleSave : function(component, event, helper) {
         helper.handleSaveHelper(component);  
     },
+    deleteChecklist : function(component,event,helper) {
+        helper.handleDelete(component);
+    }
 })

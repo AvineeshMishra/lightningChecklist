@@ -90,6 +90,7 @@
         <fullName>All</fullName>
         <columns>NAME</columns>
         <columns>Type__c</columns>
+        <columns>OWNER.FIRST_NAME</columns>
         <filterScope>Everything</filterScope>
         <label>All</label>
     </listViews>
@@ -98,6 +99,9 @@
         <type>Text</type>
     </nameField>
     <pluralLabel>Checklists</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts>
+        <customTabListAdditionalFields>Type__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>OWNER.FIRST_NAME</customTabListAdditionalFields>
+    </searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
 </CustomObject>
