@@ -42,7 +42,7 @@
                         toastEvent.fire();
                     }
                     else {
-                        alert('Checklist Item'+ ' ' +row.Description__c + ' ' +'updated successfully' );
+                        alert('Checklist Item'+ ' ' +row.Description__c + ' ' +'completed' );
                     }
                 }
             });
@@ -107,7 +107,7 @@
         action.setCallback(this,function(a){
             //get the response state
             var state = a.getState();             
-            //check if result is successfull
+            //check if result is successful
             if(state == "SUCCESS") {
                 var toastEvent = $A.get("e.force:showToast");
                 if(toastEvent) {
