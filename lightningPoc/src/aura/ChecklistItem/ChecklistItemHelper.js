@@ -1,5 +1,6 @@
 ({
-	getData : function(component,event,helper) {
+	//To load the lightning table data
+    getData : function(component,event,helper) {
 		var action = component.get("c.getChecklistItemRecord");
 		action.setCallback(this, function(response){
             var state = response.getState();
@@ -22,6 +23,7 @@
         });
         $A.enqueueAction(action);	
 	},
+    //To complete the Checklist Item task
     completeRow : function(cmp, row,action) {         
         if(!row.Completion_Status__c) {
             var item = cmp.get("c.changeStatusChecklistItem");  
@@ -63,6 +65,7 @@
         }
     
     },
+    //To delete row in lightning data table
     deleteRow: function(cmp, row) {         
       var action = cmp.get("c.deleteChecklistItemCon");
         action.setParams({
@@ -94,6 +97,7 @@
         });
         $A.enqueueAction(action);
     },
+    //To create checklist Item record
     createChecklistItemRec : function(component,event,helper) {
         //getting the Checklist Item information
         var checklistItem = component.get("v.newChecklistItem");         
@@ -140,5 +144,52 @@
         });
  		//adds the server-side action to the queue        
         $A.enqueueAction(action);
-    }
+    },
+    //To save records after inline editing in lightning data table
+    saveDataTable : function(component, event, helper) {
+        var editedRecords =  component.find("checklistItemTable").get("v.draftValues");
+        var totalRecordEdited = editedRecords.length;
+        var action = component.get("c.updateChecklistItems");
+        action.setParams({
+            'editedItemList' : editedRecords
+        });
+        action.setCallback(this,function(response) {
+            var state = response.getState();
+            if (state === "SUCCESS") {
+                //if update is successful
+                if(response.getReturnValue() === true){
+                    var toastEvent = $A.get("e.force:showToast");
+                    if(toastEvent) {
+                        toastEvent.setParams({
+                            title : 'Success Message',
+                            message: totalRecordEdited +' Checklist Item Updated',                
+                            type: 'success'
+                        });
+                        toastEvent.fire();
+                    }
+                    else {
+                        alert(totalRecordEdited +' Checklist Item Updated');
+                    }
+                    var refreshEvent = $A.get("e.force:refreshView");
+                    if(refreshEvent){
+                        refreshEvent.fire();
+                    }
+                } else { //if update got failed
+                    var toastEvent = $A.get("e.force:showToast");
+                    if(toastEvent) {
+                        toastEvent.setParams({
+                            title : 'Error Message',
+                            message: 'Error in update',                
+                            type: 'error'
+                        });
+                        toastEvent.fire();
+                    }
+                    else {
+                        alert('Error in update');
+                    }
+                }
+            }
+        });
+        $A.enqueueAction(action);
+    },    
 })

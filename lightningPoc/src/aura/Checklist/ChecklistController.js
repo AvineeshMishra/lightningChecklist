@@ -7,7 +7,8 @@
     handleSave : function(component, event, helper) {
         helper.handleSaveHelper(component);  
     },
+    //Calling this function to delete the Checklist Record
     deleteChecklist : function(component,event,helper) {
         helper.handleDelete(component);
-    }
+    }     
 })

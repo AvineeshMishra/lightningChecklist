@@ -20,9 +20,10 @@
                     
                     <lightning:datatable
                                          aura:id="checklistItemTable"
-                                         keyField="id"
+                                         keyField="Id"
                                          data="{!v.data }"
-                                         columns="{!v.columns }"                                      
+                                         columns="{!v.columns }" 
+                                         onsave ="{!c.onSave}"
                                          hideCheckboxColumn="true" onrowaction="{!c.handleRowAction}"/>
                     
                 </div>

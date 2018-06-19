@@ -66,6 +66,33 @@ private class ChecklistControllerTest {
         System.AssertEquals(true,itemList.size() > 0);
     }
     @isTest
+    private static void testChecklistItemUpdateCheck() {
+        Checklist__c check = ChecklistControllerTestFactory.buildChecklistData();
+        insert check;
+        Checklist_Item__c checkItem = ChecklistControllerTestFactory.buildChecklistItemData(check);
+        insert checkItem;
+        List<Checklist_Item__c> itemList = new List<Checklist_Item__c>();
+        itemList.add(checkItem);
+        boolean isUpdate = false;
+        Test.startTest();
+            isUpdate = ChecklistController.updateChecklistItems(itemList);
+        Test.stopTest();
+        System.AssertEquals(true,isUpdate);
+    }
+    @isTest
+    private static void testChecklistItemUpdateNegativeCheck() {
+        Checklist__c check = ChecklistControllerTestFactory.buildChecklistData();
+        insert check;
+        Checklist_Item__c checkItem = ChecklistControllerTestFactory.buildChecklistItemData(check);         
+        List<Checklist_Item__c> itemList = new List<Checklist_Item__c>();
+        itemList.add(checkItem);
+        boolean isUpdate = false;
+        Test.startTest();
+            isUpdate = ChecklistController.updateChecklistItems(itemList);
+        Test.stopTest();
+        System.AssertEquals(false,isUpdate);
+    }
+    @isTest
     private static void testChecklistItemDeleteCheck() {
         Checklist__c check = ChecklistControllerTestFactory.buildChecklistData();
         insert check;

@@ -87,27 +87,48 @@ public with sharing class ChecklistController {
      * @return        : void
      */
     @AuraEnabled     
-    public static void createChecklistItemRec(Checklist_Item__c cheklistItemobj) {
-        system.debug('**'+cheklistItemobj);         
-        cheklistItemobj.Checklist__c = getParentRecord().Id;
-        system.debug('**'+cheklistItemobj);
-        insert cheklistItemobj;
-        
+    public static void createChecklistItemRec(Checklist_Item__c cheklistItemobj) {                
+        cheklistItemobj.Checklist__c = getParentRecord().Id;         
+        insert cheklistItemobj;         
     }
+    /* @method        : deleteChecklistItemCon
+     * @Description   : To delete checklist Item Record
+     * @param         : Checklist_Item__c 
+     * @return        : void
+     */
     @AuraEnabled
     public static void deleteChecklistItemCon(Checklist_Item__c checklistItem) {
         delete checklistItem;
     }
+    /* @method        : deleteChecklistData
+     * @Description   : To delete checklist Record
+     * @param         : none
+     * @return        : void
+     */
     @AuraEnabled
     public static void deleteChecklistData() {
         try {
             Checklist__c checklist = [Select Id from Checklist__c where Owner.Id =:UserInfo.getUserId() Limit 1]; 
             if(checklist.Id != null ) {
-            	delete checklist;    
+                delete checklist;    
             }
         }
         catch(Exception e) {
             system.debug('Error in deletion-->'+e.getMessage());
+        }
+    }
+    /* @method        : updateChecklistItems
+     * @Description   : To update checklist Items on save
+     * @param         : List of Checklist Items
+     * @return        : boolean
+     */
+    @AuraEnabled
+    public static boolean updateChecklistItems(List<Checklist_Item__c> editedItemList){
+        try{
+            update editedItemList;
+            return true;
+        } catch(Exception e){
+            return false;
         }
     }
 }

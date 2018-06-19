@@ -7,7 +7,7 @@
             component.set("v.options", result.getReturnValue());
             window.setTimeout(
                 $A.getCallback( function() {
-                	$A.log("Errors", result.getError());   
+                    $A.log("Errors", result.getError());   
                 }));
         });
         $A.enqueueAction(action);
@@ -20,8 +20,8 @@
             }
             window.setTimeout(
                 $A.getCallback( function() {
-                      $A.log("Errors", result.getError());
-            }));
+                    $A.log("Errors", result.getError());
+                }));
         });
         $A.enqueueAction(action1);
         component.set("v.isLoading", false);
@@ -38,7 +38,7 @@
                     type: 'error',
                 });
                 toastEvent.fire();
-        	}
+            }
             else {
                 alert('Name and Type Should not be blank');
             }
@@ -71,6 +71,7 @@
             $A.enqueueAction(action); 
         }
     },
+    //To delete checklist Record
     handleDelete : function(component) {   
         var checklistRec = component.get("v.newChecklist");
         var action = component.get("c.deleteChecklistData");             
